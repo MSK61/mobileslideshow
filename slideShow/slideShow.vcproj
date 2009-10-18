@@ -40,7 +40,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_WINDOWS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;SMARTPHONE2003_UI_MODEL"
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_WINDOWS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;SMARTPHONE2003_UI_MODEL;STRSAFE_NO_CB_FUNCTIONS"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
@@ -187,6 +187,18 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\dirDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\platformUtils.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\showTimer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\slideShow.cpp"
 				>
 			</File>
@@ -217,7 +229,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\dirDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\platformUtils.h"
+				>
+			</File>
+			<File
 				RelativePath=".\resourcesp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\showTimer.h"
 				>
 			</File>
 			<File
@@ -241,20 +265,6 @@
 			<File
 				RelativePath=".\slideShowsp.rc"
 				>
-				<FileConfiguration
-					Name="Debug|Windows Mobile 5.0 Smartphone SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Windows Mobile 5.0 Smartphone SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\slideShowsp.rc2"

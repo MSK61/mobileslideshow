@@ -7,7 +7,9 @@
 #define IDI_SLIDESHOW                   101
 #define IDR_MENU                        102
 #define IDS_OK                          104
-#define IDD_SMARTPHONE_PORTRAIT         107
+#define IDD_DIR_DLG                     107
+#define IDC_DIR_TREE                    1000
+#define IDC_OK                          1001
 #define IDM_OK                          40001
 #define IDC_STATIC                      -1
 
@@ -18,7 +20,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        129
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1000
+#define _APS_NEXT_CONTROL_VALUE         1002
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

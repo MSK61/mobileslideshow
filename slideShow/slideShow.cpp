@@ -2,11 +2,16 @@
 //
 
 #include "stdafx.h"
+#include "dirDlg.h"
+#include "showTimer.h"
 #include "slideShow.h"
 #include <windows.h>
 #include <commctrl.h>
 
 #define MAX_LOADSTRING 100
+
+using namespace Slideshow;
+using std::list;
 
 // Global Variables:
 HINSTANCE			g_hInst;			// current instance
@@ -17,30 +22,54 @@ ATOM			MyRegisterClass(HINSTANCE, LPTSTR);
 BOOL			InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 
+namespace
+{
+    /**
+    * @brief Returns the bitmap files inside the given directory
+    *
+    * @param[in] dirName directory to return bitmap files inside
+    * return             bitmap files inside the given directory, with their
+    *                    full path
+    */
+    const list< tstring > GetBmpFiles(const tstring& dirName) throw ()
+    {
+        static const TCHAR bmpPattern[] = _T("*.bmp");// bitmap file conditions
+        list< tstring > bmpFiles = GetContents(dirName, bmpPattern, 0);
+        list< tstring >::iterator curFile = bmpFiles.begin();
+        const list< tstring >::iterator lastFile = bmpFiles.end();
+
+        for (; curFile != lastFile; curFile++)
+            *curFile = dirName + pathSep + *curFile;
+
+        return bmpFiles;
+
+    }
+}
+
 int WINAPI WinMain(HINSTANCE hInstance,
                    HINSTANCE hPrevInstance,
                    LPTSTR    lpCmdLine,
                    int       nCmdShow)
 {
-	MSG msg;
+    MSG msg;
 
-	// Perform application initialization:
-	if (!InitInstance(hInstance, nCmdShow)) 
-	{
-		return FALSE;
-	}
+    // Perform application initialization:
+    if (!InitInstance(hInstance, nCmdShow)) 
+    {
+        return FALSE;
+    }
 
 
-	// Main message loop:
-	while (GetMessage(&msg, NULL, 0, 0)) 
-	{
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-	}
+    // Main message loop:
+    while (GetMessage(&msg, NULL, 0, 0)) 
+    {
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+    }
 
-	return (int) msg.wParam;
+    return (int) msg.wParam;
 }
 
 //
@@ -52,20 +81,20 @@ int WINAPI WinMain(HINSTANCE hInstance,
 //
 ATOM MyRegisterClass(HINSTANCE hInstance, LPTSTR szWindowClass)
 {
-	WNDCLASS wc;
+    WNDCLASS wc;
 
-	wc.style         = CS_HREDRAW | CS_VREDRAW;
-	wc.lpfnWndProc   = WndProc;
-	wc.cbClsExtra    = 0;
-	wc.cbWndExtra    = 0;
-	wc.hInstance     = hInstance;
-	wc.hIcon         = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SLIDESHOW));
-	wc.hCursor       = 0;
-	wc.hbrBackground = (HBRUSH) GetStockObject(WHITE_BRUSH);
-	wc.lpszMenuName  = 0;
-	wc.lpszClassName = szWindowClass;
+    wc.style         = CS_HREDRAW | CS_VREDRAW;
+    wc.lpfnWndProc   = WndProc;
+    wc.cbClsExtra    = 0;
+    wc.cbWndExtra    = 0;
+    wc.hInstance     = hInstance;
+    wc.hIcon         = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SLIDESHOW));
+    wc.hCursor       = 0;
+    wc.hbrBackground = (HBRUSH) GetStockObject(WHITE_BRUSH);
+    wc.lpszMenuName  = 0;
+    wc.lpszClassName = szWindowClass;
 
-	return RegisterClass(&wc);
+    return RegisterClass(&wc);
 }
 
 //
@@ -106,7 +135,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
     if (!MyRegisterClass(hInstance, szWindowClass))
     {
-    	return FALSE;
+        return FALSE;
     }
 
     hWnd = CreateWindow(szWindowClass, szTitle, WS_VISIBLE,
@@ -137,60 +166,100 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    static list< tstring > bmpFiles;
+    BITMAP bmpImg;
+    RECT clientRect;
     int wmId, wmEvent;
     PAINTSTRUCT ps;
     HDC hdc;
+    static const UINT timerID = 1;
+    // time period every which a new image should be displayed
+    static const UINT turnOverPeriod = 2000;
 
-	
+
     switch (message) 
     {
-        case WM_COMMAND:
-            wmId    = LOWORD(wParam); 
-            wmEvent = HIWORD(wParam); 
-            // Parse the menu selections:
-            switch (wmId)
-            {
-                case IDM_OK:
-                    DestroyWindow(hWnd);
-                    break;
-                default:
-                    return DefWindowProc(hWnd, message, wParam, lParam);
-            }
+    case WM_COMMAND:
+        wmId    = LOWORD(wParam); 
+        wmEvent = HIWORD(wParam); 
+        // Parse the menu selections:
+        switch (wmId)
+        {
+        case IDM_OK:
+            DestroyWindow(hWnd);
             break;
-        case WM_CREATE:
-            SHMENUBARINFO mbi;
-
-            memset(&mbi, 0, sizeof(SHMENUBARINFO));
-            mbi.cbSize     = sizeof(SHMENUBARINFO);
-            mbi.hwndParent = hWnd;
-            mbi.nToolBarId = IDR_MENU;
-            mbi.hInstRes   = g_hInst;
-
-            if (!SHCreateMenuBar(&mbi)) 
-            {
-                g_hWndMenuBar = NULL;
-            }
-            else
-            {
-                g_hWndMenuBar = mbi.hwndMB;
-            }
-
-            break;
-        case WM_PAINT:
-            hdc = BeginPaint(hWnd, &ps);
-            
-            // TODO: Add any drawing code here...
-            
-            EndPaint(hWnd, &ps);
-            break;
-        case WM_DESTROY:
-            CommandBar_Destroy(g_hWndMenuBar);
-            PostQuitMessage(0);
-            break;
-
-
         default:
             return DefWindowProc(hWnd, message, wParam, lParam);
+        }
+        break;
+    case WM_CREATE:
+        SHMENUBARINFO mbi;
+
+        memset(&mbi, 0, sizeof(SHMENUBARINFO));
+        mbi.cbSize     = sizeof(SHMENUBARINFO);
+        mbi.hwndParent = hWnd;
+        mbi.nToolBarId = IDR_MENU;
+        mbi.hInstRes   = g_hInst;
+
+        if (!SHCreateMenuBar(&mbi)) 
+        {
+            g_hWndMenuBar = NULL;
+        }
+        else
+        {
+            g_hWndMenuBar = mbi.hwndMB;
+        }
+
+        /// Prompt the user for a folder.
+        DialogBox(g_hInst, MAKEINTRESOURCE(IDD_DIR_DLG), hWnd, DirDlgProc);
+        /// Get the bitmap images to be displayed.
+        bmpFiles = GetBmpFiles(browseDirName);
+        /// Initialize the image display sequence.
+        curBitmap = bmpFiles.begin();
+        lastBitmap = bmpFiles.end();
+        /// Simulate an initial timer tick to display the first image.
+        ChangeImg(hWnd, WM_TIMER, timerID, GetTickCount());
+        /// Start the timer.
+        SetTimer(hWnd, timerID, turnOverPeriod, ChangeImg);
+        break;
+    case WM_PAINT:
+        hdc = BeginPaint(hWnd, &ps);
+
+        // TODO: Add any drawing code here...
+        /// Draw the bitmap.
+        if (inMemDC != NULL)
+        {
+
+            GetObject(curImgObj, sizeof(bmpImg), &bmpImg);
+            GetClientRect(hWnd, &clientRect);
+            StretchBlt(hdc, 0, 0, clientRect.right, clientRect.bottom, inMemDC,
+                0, 0, bmpImg.bmWidth, bmpImg.bmHeight, SRCCOPY);
+
+        }
+
+        EndPaint(hWnd, &ps);
+        break;
+    case WM_DESTROY:
+
+        KillTimer(hWnd, timerID);/// Stop the timer.
+
+        // GDI clean-up
+        if (inMemDC != NULL)
+        {
+
+            SelectObject(inMemDC, initialDCObj);
+            DeleteObject(curImgObj);
+            DeleteDC(inMemDC);
+
+        }
+
+        CommandBar_Destroy(g_hWndMenuBar);
+        PostQuitMessage(0);
+        break;
+
+
+    default:
+        return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;
 }
