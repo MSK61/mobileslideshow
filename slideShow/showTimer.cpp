@@ -49,21 +49,21 @@ namespace Slideshow
         else
         {
 
-            /// Create a device context if no one already exists.
+            // Create a device context if no one already exists.
             if (inMemDC == NULL) inMemDC = CreateCompatibleDC(NULL);
 
-            /// Load the current bitmap and associate it to the device context.
+            // Load the current bitmap and associate it to the device context.
             curImgObj = SHLoadDIBitmap(curBitmap++ -> c_str());
             oldImgObj = SelectObject(inMemDC, curImgObj);
 
             if (inMemDC == NULL || curImgObj == NULL || oldImgObj == NULL)
-                DestroyWindow(hwnd);/// Trap errors.
+                DestroyWindow(hwnd);// Trap errors.
 
             // Maintain/clean up old data.
             if (initialDCObj == NULL) initialDCObj = oldImgObj;
             else DeleteObject(oldImgObj);
 
-            /// Invalidate all the client area.
+            // Invalidate all the client area.
             GetClientRect(hwnd, &clientRect);
             InvalidateRect(hwnd, &clientRect, FALSE);
 

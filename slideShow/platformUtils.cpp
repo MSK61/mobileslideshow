@@ -48,7 +48,7 @@ namespace Slideshow
         if (itemIter != INVALID_HANDLE_VALUE)
         {
 
-            /// Add contents matching the provided filter only.
+            // Add contents matching the provided filter only.
             do if ((itemInfo.dwFileAttributes & attrFilter) == attrFilter)
                 contents.push_back(itemInfo.cFileName);
             while (FindNextFile(itemIter, &itemInfo));

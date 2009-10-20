@@ -241,7 +241,7 @@ namespace Slideshow
 
         case WM_INITDIALOG:
 
-            /// Publish the store names as root nodes.
+            // Publish the store names as root nodes.
             UpdateNode(GetDlgItem(hwndDlg, IDC_DIR_TREE), TVI_ROOT);
             break;
 
