@@ -1,0 +1,61 @@
+/*
+========================================================================
+ Name        : slideShow.rss
+ Author      : Mohammed Safwat
+ Copyright   : 2009 Mohammed El-Afifi
+ This file is part of slideShow.
+
+ slideShow is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ slideShow is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with slideShow.  If not, see <http://www.gnu.org/licenses/>.
+
+ Description : 
+========================================================================
+*/
+NAME SLID
+
+#include <avkon.rsg>
+#include <avkon.rh>
+#include <eikon.rh>
+#include <appinfo.rh>
+#include "slideShow.loc"
+
+RESOURCE RSS_SIGNATURE
+	{
+	}
+RESOURCE TBUF
+	{
+	buf = "slideShow";
+	}
+RESOURCE EIK_APP_INFO r_application_slide_show_app_ui
+	{
+	cba = R_AVKON_SOFTKEYS_OPTIONS_EXIT;
+	status_pane = r_application_status_pane;
+	menubar = r_application_options_menu;
+	}
+RESOURCE STATUS_PANE_APP_MODEL r_application_status_pane
+	{
+	}
+RESOURCE MENU_BAR r_application_options_menu
+	{
+	}
+RESOURCE LOCALISABLE_APP_INFO r_localisable_app_info
+	{
+	short_caption = STR_slideShowApplication_5;
+	caption_and_icon = CAPTION_AND_ICON_INFO
+		{
+		caption = STR_slideShowApplication_4;
+		number_of_icons = 0;
+		};
+	}
+
+#include "CslideShowWnd.rssi"
