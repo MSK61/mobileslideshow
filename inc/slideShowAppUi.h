@@ -18,7 +18,7 @@
  You should have received a copy of the GNU Lesser General Public License
  along with slideShow.  If not, see <http://www.gnu.org/licenses/>.
 
- Description : 
+ Description :
 ========================================================================
 */
 #ifndef SLIDESHOWAPPUI_H
@@ -30,7 +30,7 @@
 // ]]] end generated region [Generated Includes]
 
 // [[[ begin generated region: do not modify [Generated Forward Declarations]
-class CCslideShowWnd;
+class CSlideShowWnd;
 // ]]] end generated region [Generated Forward Declarations]
 
 /**
@@ -40,38 +40,38 @@ class CCslideShowWnd;
  */
 class CslideShowAppUi : public CAknAppUi
 	{
-public: 
+public:
 	// constructor and destructor
 	CslideShowAppUi();
 	void ConstructL();
 	virtual ~CslideShowAppUi();
 
-public: 
+public:
 	// from CEikAppUi
 	void HandleCommandL( TInt aCommand );
-	void HandleResourceChangeL( TInt aType );	
-	
+	void HandleResourceChangeL( TInt aType );
+
 private:
 	void InitializeContainersL();
 	// [[[ begin generated region: do not modify [Generated Methods]
-public: 
+public:
 	// ]]] end generated region [Generated Methods]
-	
+
 	// [[[ begin generated region: do not modify [Generated Instance Variables]
-private: 
-	CCslideShowWnd* iCslideShowWnd;
+private:
+	CSlideShowWnd* iSlideShowWnd;
 	// ]]] end generated region [Generated Instance Variables]
-	
-	
+
+
 	// [[[ begin [Overridden Methods]
-protected: 
+protected:
 	// ]]] end [Overridden Methods]
-	
-	
+
+
 	// [[[ begin [User Handlers]
-protected: 
+protected:
 	// ]]] end [User Handlers]
-	
+
 	};
 
-#endif // SLIDESHOWAPPUI_H			
+#endif // SLIDESHOWAPPUI_H

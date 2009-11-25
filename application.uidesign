@@ -92,8 +92,8 @@
           <compoundProperty id="size"/>
         </component>
         <component id="com.nokia.sdt.series60.DesignReference">
-          <property id="filePath">CslideShowWnd.uidesign</property>
-          <property id="baseName">CslideShowWnd</property>
+          <property id="filePath">slideShowWnd.uidesign</property>
+          <property id="baseName">slideShowWnd</property>
           <property id="name">designReference1</property>
         </component>
       </component>
@@ -106,6 +106,13 @@
       <string id="STR_slideShowApplication_3"/>
       <string id="STR_slideShowApplication_4">slideShow</string>
       <string id="STR_slideShowApplication_5">slideShow</string>
+    </stringTable>
+    <stringTable language="LANG_Arabic">
+      <string id="STR_slideShowApplication_1"/>
+      <string id="STR_slideShowApplication_2"/>
+      <string id="STR_slideShowApplication_3"/>
+      <string id="STR_slideShowApplication_4">عرض الشرائح</string>
+      <string id="STR_slideShowApplication_5">عرض الشرائح</string>
     </stringTable>
   </stringBundle>
   <macroTable/>
@@ -120,17 +127,18 @@
     <arrayMappings/>
   </sourceMappingState>
   <generatedFiles>
-    <file>inc/cslideshowwnd.h</file>
+    <file>inc/slideshowwnd.h</file>
     <file>src/slideshowdocument.cpp</file>
     <file>inc/slideshowappui.h</file>
     <file>inc/slideshowdocument.h</file>
     <file>src/slideshowapplication.cpp</file>
     <file>src/slideshowappui.cpp</file>
-    <file>src/cslideshowwnd.cpp</file>
+    <file>src/slideshowwnd.cpp</file>
     <file>inc/slideshowapplication.h</file>
     <file>data/slideshow.rss</file>
-    <file>data/cslideshowwnd.rssi</file>
-    <file>data/slideshow.l01</file>
+    <file>data/slideshowwnd.rssi</file>
     <file>data/slideshow.loc</file>
+    <file>data/slideshow.l01</file>
+    <file>data/slideshow.l37</file>
   </generatedFiles>
 </designerData>

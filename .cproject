@@ -22,12 +22,15 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="CarbideConfigurationDataProvider">
+
 <ENV_VAR_DATA_ID/>
 <ARGUMENTS_DATA_ID ABLDFREEZEARGSSTORAGE="-r"/>
 <ROM_BUILDER_DATA_ID ROMBUILDWORKINGDIRECTORYSTORAGE="C:\"/>
 </storageModule>
-<storageModule filesCache="C:\Symbian\Carbide\workspace\slideShow\group\bld.inf;C:\Symbian\Carbide\workspace\slideShow\group\slideShow.mmp;" includesCache="C:/Symbian/Carbide/workspace/slideShow/inc[LOCAL];C:/Symbian/Carbide/workspace/slideShow/data[LOCAL];C:/S60/devices/Nokia_N97_SDK_v1.0/epoc32/include;C:/S60/devices/Nokia_N97_SDK_v1.0/epoc32/include/variant;C:/S60/devices/Nokia_N97_SDK_v1.0/epoc32/include/ecom;" macrosCache="__S60_50__;__EXE__;__WINSCW__;__SUPPORT_CPP_EXCEPTIONS__;__SYMBIAN32__;__S60_3X__;_UNICODE;__S60_5X__;__SERIES60_3X__;_DEBUG;__WINS__;__CW32__;" moduleId="configDataCache" sourcesCache="/slideShow/data;/slideShow/inc;/slideShow/src;" timestampCache="1258245692185" useMmpMacrosCache="true"/>
+<storageModule filesCache="C:\Symbian\Carbide\workspace\slideShow\group\bld.inf;C:\Symbian\Carbide\workspace\slideShow\group\slideShow.mmp;" includesCache="C:/Symbian/Carbide/workspace/slideShow/inc[LOCAL];C:/Symbian/Carbide/workspace/slideShow/data[LOCAL];C:/S60/devices/Nokia_N97_SDK_v1.0/epoc32/include;C:/S60/devices/Nokia_N97_SDK_v1.0/epoc32/include/variant;C:/S60/devices/Nokia_N97_SDK_v1.0/epoc32/include/ecom;" macrosCache="__S60_50__;__EXE__;__WINSCW__;__SUPPORT_CPP_EXCEPTIONS__;__SYMBIAN32__;__S60_3X__;_UNICODE;__S60_5X__;__SERIES60_3X__;_DEBUG;__WINS__;__CW32__;" moduleId="configDataCache" sourcesCache="/slideShow/data;/slideShow/inc;/slideShow/src;" timestampCache="1259111258808" useMmpMacrosCache="true"/>
 <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 </cconfiguration>
 </storageModule>
 </cproject>

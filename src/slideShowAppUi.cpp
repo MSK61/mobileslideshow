@@ -18,7 +18,7 @@
  You should have received a copy of the GNU Lesser General Public License
  along with slideShow.  If not, see <http://www.gnu.org/licenses/>.
 
- Description : 
+ Description :
 ========================================================================
 */
 // [[[ begin generated region: do not modify [Generated System Includes]
@@ -30,7 +30,7 @@
 
 // [[[ begin generated region: do not modify [Generated User Includes]
 #include "slideShowAppUi.h"
-#include "CslideShowWnd.h"
+#include "slideShowWnd.h"
 // ]]] end generated region [Generated User Includes]
 
 // [[[ begin generated region: do not modify [Generated Constants]
@@ -38,53 +38,53 @@
 
 /**
  * Construct the CslideShowAppUi instance
- */ 
+ */
 CslideShowAppUi::CslideShowAppUi()
 	{
 	// [[[ begin generated region: do not modify [Generated Contents]
-	iCslideShowWnd = NULL;
+	iSlideShowWnd = NULL;
 	// ]]] end generated region [Generated Contents]
-	
+
 	}
 
-/** 
+/**
  * The appui's destructor removes the container from the control
  * stack and destroys it.
  */
 CslideShowAppUi::~CslideShowAppUi()
 	{
 	// [[[ begin generated region: do not modify [Generated Contents]
-	if ( iCslideShowWnd != NULL )
+	if ( iSlideShowWnd != NULL )
 		{
-		RemoveFromStack( iCslideShowWnd );
-		delete iCslideShowWnd;
-		iCslideShowWnd = NULL;
+		RemoveFromStack( iSlideShowWnd );
+		delete iSlideShowWnd;
+		iSlideShowWnd = NULL;
 		}
 	// ]]] end generated region [Generated Contents]
-	
+
 	}
 
 /**
- * @brief Completes the second phase of Symbian object construction. 
- * Put initialization code that could leave here. 
- */ 
+ * @brief Completes the second phase of Symbian object construction.
+ * Put initialization code that could leave here.
+ */
 void CslideShowAppUi::ConstructL()
 	{
 	// [[[ begin generated region: do not modify [Generated Contents]
-	
-	BaseConstructL( EAknEnableSkin  | 
-					 EAknEnableMSK ); 
+
+	BaseConstructL( EAknEnableSkin  |
+					 EAknEnableMSK );
 	InitializeContainersL();
 	// ]]] end generated region [Generated Contents]
-	
+
 	}
 
 // [[[ begin generated function: do not modify
 void CslideShowAppUi::InitializeContainersL()
 	{
-	iCslideShowWnd = CCslideShowWnd::NewL( ClientRect(), NULL, this );
-	iCslideShowWnd->SetMopParent( this );
-	AddToStackL( iCslideShowWnd );
+	iSlideShowWnd = CSlideShowWnd::NewL( ClientRect(), NULL, this );
+	iSlideShowWnd->SetMopParent( this );
+	AddToStackL( iSlideShowWnd );
 	}
 // ]]] end generated function
 
@@ -101,9 +101,9 @@ void CslideShowAppUi::HandleCommandL( TInt aCommand )
 		default:
 			break;
 		}
-	
-		
-	if ( !commandHandled ) 
+
+
+	if ( !commandHandled )
 		{
 		if ( aCommand == EAknSoftkeyExit || aCommand == EEikCmdExit )
 			{
@@ -111,10 +111,10 @@ void CslideShowAppUi::HandleCommandL( TInt aCommand )
 			}
 		}
 	// ]]] end generated region [Generated Code]
-	
+
 	}
 
-/** 
+/**
  * Override of the HandleResourceChangeL virtual function
  */
 void CslideShowAppUi::HandleResourceChangeL( TInt aType )
@@ -122,6 +122,6 @@ void CslideShowAppUi::HandleResourceChangeL( TInt aType )
 	CAknAppUi::HandleResourceChangeL( aType );
 	// [[[ begin generated region: do not modify [Generated Code]
 	// ]]] end generated region [Generated Code]
-	
+
 	}
-				
+

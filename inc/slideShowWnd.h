@@ -1,6 +1,6 @@
 /*
 ========================================================================
- Name        : CslideShowWnd.h
+ Name        : slideShowWnd.h
  Author      : Mohammed Safwat
  Copyright   : 2009 Mohammed El-Afifi
  This file is part of slideShow.
@@ -18,57 +18,68 @@
  You should have received a copy of the GNU Lesser General Public License
  along with slideShow.  If not, see <http://www.gnu.org/licenses/>.
 
- Description : 
+ Description :
 ========================================================================
 */
-#ifndef CSLIDESHOWWND_H
-#define CSLIDESHOWWND_H
+#ifndef SLIDESHOWWND_H
+#define SLIDESHOWWND_H
 
 // [[[ begin generated region: do not modify [Generated Includes]
-#include <coecntrl.h>		
+#include <coecntrl.h>
 // ]]] end generated region [Generated Includes]
 
+#include "CImgLoader.h"
+#include "MImgLoadClient.h"
 
 // [[[ begin [Event Handler Includes]
 // ]]] end [Event Handler Includes]
 
 // [[[ begin generated region: do not modify [Generated Forward Declarations]
-class MEikCommandObserver;		
+class MEikCommandObserver;
+class CEikImage;
 // ]]] end generated region [Generated Forward Declarations]
 
+namespace Slideshow
+{
+class CImgLoader;
+}
 /**
- * Container class for CslideShowWnd
- * 
- * @class	CCslideShowWnd CslideShowWnd.h
+ * Container class for slideShowWnd
+ *
+ * @class	CSlideShowWnd slideShowWnd.h
  */
-class CCslideShowWnd : public CCoeControl
-	{
+class CSlideShowWnd : public CCoeControl, public Slideshow::MImgLoadClient
+    {
 public:
 	// constructors and destructor
-	CCslideShowWnd();
-	static CCslideShowWnd* NewL( 
-		const TRect& aRect, 
-		const CCoeControl* aParent, 
+	CSlideShowWnd();
+	static CSlideShowWnd* NewL(
+		const TRect& aRect,
+		const CCoeControl* aParent,
 		MEikCommandObserver* aCommandObserver );
-	static CCslideShowWnd* NewLC( 
-		const TRect& aRect, 
-		const CCoeControl* aParent, 
+	static CSlideShowWnd* NewLC(
+		const TRect& aRect,
+		const CCoeControl* aParent,
 		MEikCommandObserver* aCommandObserver );
-	void ConstructL( 
-		const TRect& aRect, 
-		const CCoeControl* aParent, 
+	void ConstructL(
+		const TRect& aRect,
+		const CCoeControl* aParent,
 		MEikCommandObserver* aCommandObserver );
-	virtual ~CCslideShowWnd();
+	virtual ~CSlideShowWnd();
 
 public:
 	// from base class CCoeControl
 	TInt CountComponentControls() const;
 	CCoeControl* ComponentControl( TInt aIndex ) const;
-	TKeyResponse OfferKeyEventL( 
-			const TKeyEvent& aKeyEvent, 
+	TKeyResponse OfferKeyEventL(
+			const TKeyEvent& aKeyEvent,
 			TEventCode aType );
 	void HandleResourceChange( TInt aType );
-	
+
+public:
+    // from base class Slideshow::MImgLoadClient
+    void HandleImg(TInt aLoadRes, const CFbsBitmap* aImgObj);
+
 protected:
 	// from base class CCoeControl
 	void SizeChanged();
@@ -78,43 +89,73 @@ private:
 	void Draw( const TRect& aRect ) const;
 
 private:
+    /**
+     * @brief Exits the application
+     */
+    void ExitApp(void);
 	void InitializeControlsL();
 	void LayoutControls();
+	/**
+	 * @brief List of bitmap files to display
+	 */
+	CDir* iBmpFiles;
+    /**
+    * @brief Current bitmap to be displayed
+    */
+    TInt iCurBitmap;
 	CCoeControl* iFocusControl;
 	MEikCommandObserver* iCommandObserver;
+	/**
+	 * @brief Image loading and decoding facility
+	 */
+	Slideshow::CImgLoader iImgLoader;
+	/**
+	 * @brief Folder selected by the user
+	 */
+	TPath iSelFolder;
+	/**
+	 * @brief Timer to trigger changing images
+	 */
+	CPeriodic* iTimer;
 	// [[[ begin generated region: do not modify [Generated Methods]
-public: 
+public:
 	// ]]] end generated region [Generated Methods]
-	
+
 	// [[[ begin generated region: do not modify [Generated Type Declarations]
-public: 
+public:
 	// ]]] end generated region [Generated Type Declarations]
-	
+
 	// [[[ begin generated region: do not modify [Generated Instance Variables]
-private: 
+private:
+	CEikImage* iShowImage;
 	// ]]] end generated region [Generated Instance Variables]
-	
-	
+
+
 	// [[[ begin [Overridden Methods]
-protected: 
+protected:
 	// ]]] end [Overridden Methods]
-	
-	
+
+
 	// [[[ begin [User Handlers]
-protected: 
+protected:
 	// ]]] end [User Handlers]
-	
-public: 
+
+public:
 	enum TControls
 		{
 		// [[[ begin generated region: do not modify [Generated Contents]
-		
+		EShowImage,
+
 		// ]]] end generated region [Generated Contents]
-		
+
 		// add any user-defined entries here...
-		
+
 		ELastControl
 		};
+    /**
+     * @brief Image displaying timer callback
+     */
+    void ChangeImgL(void);
 	};
-				
-#endif // CSLIDESHOWWND_H
+
+#endif // SLIDESHOWWND_H

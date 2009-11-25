@@ -6,6 +6,10 @@
     <manifestEntry id="com.nokia.sdt.series60.CommonBase" version="1.0.0"/>
     <manifestEntry id="com.nokia.sdt.series60.CCoeControl" version="1.2.0"/>
     <manifestEntry id="com.nokia.sdt.series60.ContainerBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CEikImage" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.symbian.CEikAlignedBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CCoeControlBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.ControlBase" version="1.0.0"/>
   </componentManifest>
   <property id="com.nokia.sdt.component.symbian.vendor">com.nokia.series60</property>
   <property id="com.nokia.sdt.component.symbian.version">5.0.0</property>
@@ -27,16 +31,29 @@
       <compoundProperty id="location">
         <property id="y">66</property>
       </compoundProperty>
-      <property id="className">CCslideShowWnd</property>
-      <property id="name">CslideShowWnd</property>
+      <property id="className">CSlideShowWnd</property>
+      <property id="name">slideShowWnd</property>
       <compoundProperty id="size">
         <property id="width">240</property>
         <property id="height">222</property>
       </compoundProperty>
+      <component id="com.nokia.sdt.series60.CEikImage">
+        <compoundProperty id="location">
+          <property id="y">0</property>
+          <property id="x">0</property>
+        </compoundProperty>
+        <property id="name">showImage</property>
+        <compoundProperty id="size">
+          <property id="width">240</property>
+          <property id="height">222</property>
+        </compoundProperty>
+        <compoundProperty id="image"/>
+      </component>
     </component>
   </component>
   <stringBundle>
     <stringTable language="LANG_English"/>
+    <stringTable language="LANG_Arabic"/>
   </stringBundle>
   <macroTable/>
   <sourceMappingState>
@@ -45,9 +62,12 @@
     <arrayMappings/>
   </sourceMappingState>
   <generatedFiles>
-    <file>inc/cslideshowwnd.h</file>
-    <file>src/cslideshowwnd.cpp</file>
+    <file>src/slideshowwnd.cpp</file>
+    <file>inc/slideshowwnd.h</file>
     <file>data/slideshow.rss</file>
-    <file>data/cslideshowwnd.rssi</file>
+    <file>data/slideshowwnd.rssi</file>
+    <file>data/slideshow.loc</file>
+    <file>data/slideshow.l01</file>
+    <file>data/slideshow.l37</file>
   </generatedFiles>
 </designerData>

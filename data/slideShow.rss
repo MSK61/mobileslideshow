@@ -18,7 +18,7 @@
  You should have received a copy of the GNU Lesser General Public License
  along with slideShow.  If not, see <http://www.gnu.org/licenses/>.
 
- Description : 
+ Description :
 ========================================================================
 */
 NAME SLID
@@ -57,5 +57,13 @@ RESOURCE LOCALISABLE_APP_INFO r_localisable_app_info
 		number_of_icons = 0;
 		};
 	}
+RESOURCE TBUF32 r_brws_dlg_title
+    {
+    buf = text_brws_dlg_title;
+    }
+RESOURCE TBUF16 r_brws_sel_btn
+    {
+    buf = text_brws_sel_btn;
+    }
 
-#include "CslideShowWnd.rssi"
+#include "slideShowWnd.rssi"

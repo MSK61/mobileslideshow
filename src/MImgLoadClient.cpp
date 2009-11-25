@@ -1,6 +1,6 @@
 /*
-========================================================================
- Name        : slideShow.loc
+ ========================================================================
+ Name        : MImgLoadClient.cpp
  Author      : Mohammed Safwat
  Copyright   : 2009 Mohammed El-Afifi
  This file is part of slideShow.
@@ -18,12 +18,17 @@
  You should have received a copy of the GNU Lesser General Public License
  along with slideShow.  If not, see <http://www.gnu.org/licenses/>.
 
- Description : 
-========================================================================
-*/
-#ifdef LANGUAGE_01
-#include "slideShow.l01"
-#endif
-#ifdef LANGUAGE_37
-#include "slideShow.l37"
-#endif
+ Description : represents the stub of the interface MImgLoadClient
+ ========================================================================
+ */
+
+#include "../inc/MImgLoadClient.h"
+
+namespace Slideshow
+    {
+
+    MImgLoadClient::~MImgLoadClient()
+        {
+        }
+
+    }

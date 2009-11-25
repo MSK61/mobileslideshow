@@ -27,3 +27,7 @@
 #define STR_slideShowApplication_2 ""
 #define STR_slideShowApplication_3 ""
 #define STR_slideShowApplication_4 "slideShow"
+// d:folder selection dialog title
+#define text_brws_dlg_title "Select folder"
+// d:selection button label
+#define text_brws_sel_btn "Select"

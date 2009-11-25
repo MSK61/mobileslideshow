@@ -22,9 +22,9 @@ LIBRARY			euser.lib apparc.lib cone.lib eikcore.lib avkon.lib
 LIBRARY			commonengine.lib efsrv.lib estor.lib eikcoctl.lib eikdlg.lib 
 LIBRARY			eikctl.lib bafl.lib fbscli.lib aknnotify.lib aknicon.lib
 LIBRARY			etext.lib gdi.lib egul.lib insock.lib
-LIBRARY			ecom.lib InetProtUtil.lib http.lib esock.lib
+LIBRARY			ecom.lib InetProtUtil.lib http.lib esock.lib commondialogs.lib platformenv.lib imageconversion.lib
 
-LANG 				01
+LANG 				01 37
 
 START BITMAP	slideShow.mbm
 HEADER
@@ -39,4 +39,6 @@ SOURCEPATH		..\src
 DEBUGGABLE_UDEBONLY
 #endif
 
-SOURCE slideShowDocument.cpp slideShowApplication.cpp slideShowAppUi.cpp CslideShowWnd.cpp
+SOURCE slideShowDocument.cpp slideShowApplication.cpp slideShowAppUi.cpp slideShowWnd.cpp
+SOURCEPATH ..\src
+SOURCE CImgLoader.cpp MImgLoadClient.cpp
