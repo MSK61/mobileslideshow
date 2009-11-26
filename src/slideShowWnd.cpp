@@ -214,7 +214,7 @@ void CSlideShowWnd::ConstructL(
         iCurBitmap = 0;
         CActiveScheduler::Add(iImgLoader);
         iTimer = CPeriodic::NewL(CPeriodic::EPriorityStandard);
-        iTimer->Start(0, 2000000, TCallBack(FlipImgL, this));
+        ChangeImgL();
 
         }
     else
@@ -332,6 +332,8 @@ void CSlideShowWnd::HandleImg(TInt aLoadRes, const CFbsBitmap& aImgObj)
 
         iInMemDC->DrawBitmap(TPoint(0, 0), &aImgObj);
         DrawDeferred();
+        static const TTimeIntervalMicroSeconds32 KTimerPeriod = 2000000;
+        iTimer->Start(KTimerPeriod, KTimerPeriod, TCallBack(FlipImgL, this));
 
         }
 
@@ -359,6 +361,7 @@ void CSlideShowWnd::ChangeImgL(void)
     else
         {
 
+        iTimer->Cancel();
         TFileName imgFile = iSelFolder;
         imgFile.Append((*iBmpFiles)[iCurBitmap++].iName);
         iImgLoader->LoadImgL(imgFile);
