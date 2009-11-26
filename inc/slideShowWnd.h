@@ -28,7 +28,6 @@
 #include <coecntrl.h>
 // ]]] end generated region [Generated Includes]
 
-#include "CImgLoader.h"
 #include "MImgLoadClient.h"
 
 // [[[ begin [Event Handler Includes]
@@ -36,7 +35,6 @@
 
 // [[[ begin generated region: do not modify [Generated Forward Declarations]
 class MEikCommandObserver;
-class CEikImage;
 // ]]] end generated region [Generated Forward Declarations]
 
 namespace Slideshow
@@ -78,7 +76,7 @@ public:
 
 public:
     // from base class Slideshow::MImgLoadClient
-    void HandleImg(TInt aLoadRes, const CFbsBitmap* aImgObj);
+    void HandleImg(TInt aLoadRes, const CFbsBitmap& aImgObj);
 
 protected:
 	// from base class CCoeControl
@@ -108,11 +106,19 @@ private:
 	/**
 	 * @brief Image loading and decoding facility
 	 */
-	Slideshow::CImgLoader iImgLoader;
+	Slideshow::CImgLoader* iImgLoader;
+    /**
+    * @brief In-memory device context storing the bitmap
+    */
+	CBitmapContext* iInMemDC;
 	/**
 	 * @brief Folder selected by the user
 	 */
 	TPath iSelFolder;
+	/**
+	 * @brief Image object to be displayed
+	 */
+	CWsBitmap* iShowImg;
 	/**
 	 * @brief Timer to trigger changing images
 	 */
@@ -127,7 +133,6 @@ public:
 
 	// [[[ begin generated region: do not modify [Generated Instance Variables]
 private:
-	CEikImage* iShowImage;
 	// ]]] end generated region [Generated Instance Variables]
 
 
@@ -144,7 +149,6 @@ public:
 	enum TControls
 		{
 		// [[[ begin generated region: do not modify [Generated Contents]
-		EShowImage,
 
 		// ]]] end generated region [Generated Contents]
 

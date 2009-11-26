@@ -1,5 +1,5 @@
 /*
-========================================================================
+ ========================================================================
  Name        : CImgLoader.cpp
  Author      : Mohammed Safwat
  Copyright   : 2009 Mohammed El-Afifi
@@ -19,29 +19,45 @@
  along with slideShow.  If not, see <http://www.gnu.org/licenses/>.
 
  Description : represents the implementation of the class CImgLoader
-========================================================================
-*/
-#include "CImgLoader.h"
+ ========================================================================
+ */
+
+#include "../inc/CImgLoader.h"
 #include <imageconversion.h>
 #include "MImgLoadClient.h"
+
 namespace Slideshow
     {
-    CImgLoader::CImgLoader(MImgLoadClient& aObserver) :
-        CActive(EPriorityStandard), iImgObj(NULL), iImgLoader(NULL), iObserver(
-            aObserver)
+
+    CImgLoader::~CImgLoader()
         {
+
+        delete iImgObj;
+
         }
 
     void CImgLoader::LoadImgL(const TFileName& aFileName)
         {
 
         iImgLoader = CImageDecoder::FileNewL(iFilesys, aFileName);
-        iImgObj = new (ELeave) CFbsBitmap;
         const TFrameInfo* const imgInfo = &(iImgLoader->FrameInfo());
-        iImgObj->Create(imgInfo->iOverallSizeInPixels,
-            imgInfo->iFrameDisplayMode);
+        User::LeaveIfError(iImgObj->Create(imgInfo->iOverallSizeInPixels,
+            imgInfo->iFrameDisplayMode));
         iImgLoader->Convert(&iStatus, *iImgObj);
         SetActive();
+
+        }
+
+    CImgLoader* const CImgLoader::NewL(const TSize& aImgTwipSize,
+        MImgLoadClient& aObserver)
+        {
+        CImgLoader* const self = new (ELeave) CImgLoader(aImgTwipSize,
+            aObserver);
+
+        CleanupStack::PushL(self);
+        self->ConstructL();
+        CleanupStack::Pop();// for the created image loader instance
+        return self;
 
         }
 
@@ -53,8 +69,6 @@ namespace Slideshow
 
             iImgLoader->Cancel();
             EndLoad();
-            delete iImgObj;
-            iImgObj = NULL;
 
             }
 
@@ -63,10 +77,23 @@ namespace Slideshow
     void CImgLoader::RunL(void)
         {
 
+        iImgObj->SetSizeInTwips(iImgTwipSize);//pre-notification processing
+        iObserver.HandleImg(iStatus.Int(), *iImgObj);
         EndLoad();
-        // Transfer the image ownership to the observer.
-        iObserver.HandleImg(iStatus.Int(), iImgObj);
-        iImgObj = NULL;
+
+        }
+
+    CImgLoader::CImgLoader(const TSize& aImgTwipSize, MImgLoadClient& aObserver) :
+        CActive(EPriorityStandard),
+            iImgLoader(NULL), iImgObj(NULL),
+            iObserver(aObserver), iImgTwipSize(aImgTwipSize)
+        {
+        }
+
+    void CImgLoader::ConstructL(void)
+        {
+
+        iImgObj = new (ELeave) CFbsBitmap;
 
         }
 
@@ -75,6 +102,8 @@ namespace Slideshow
 
         delete iImgLoader;
         iImgLoader = NULL;
+        iImgObj->Reset();
 
         }
+
     }

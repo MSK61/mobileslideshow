@@ -22,18 +22,15 @@
 ========================================================================
 */
 // [[[ begin generated region: do not modify [Generated System Includes]
-#include <barsread.h>
-#include <eikimage.h>
-#include <eikenv.h>
 
 #include <eikmenub.h>
 
 #include <eikcmobs.h>
 #include <eikappui.h>
-#include <akniconutils.h>
 #include <slideShow.rsg>
 // ]]] end generated region [Generated System Includes]
 #include <caknfileselectiondialog.h>
+#include "CImgLoader.h"
 #include <pathinfo.h>
 #include <stringloader.h>
 
@@ -65,10 +62,9 @@ namespace
  * contain any code that could leave.
  */
 CSlideShowWnd::CSlideShowWnd() :
-    iBmpFiles(NULL), iImgLoader(*this)
+    iBmpFiles(NULL), iImgLoader(NULL), iInMemDC(NULL), iShowImg(NULL)
     {
     // [[[ begin generated region: do not modify [Generated Contents]
-	iShowImage = NULL;
     // ]]] end generated region [Generated Contents]
 
     }
@@ -78,8 +74,6 @@ CSlideShowWnd::CSlideShowWnd() :
 CSlideShowWnd::~CSlideShowWnd()
     {
     // [[[ begin generated region: do not modify [Generated Contents]
-	delete iShowImage;
-	iShowImage = NULL;
     // ]]] end generated region [Generated Contents]
 
     if (iTimer != NULL)
@@ -90,8 +84,26 @@ CSlideShowWnd::~CSlideShowWnd()
 
         }
 
-    iImgLoader.Cancel();
+    if (iImgLoader != NULL)
+        {
+
+        iImgLoader->Cancel();
+        delete iImgLoader;
+
+        }
+
     delete iBmpFiles;
+
+    if (iInMemDC != NULL)
+        {
+
+        const CGraphicsDevice* const imgDev = iInMemDC->Device();
+        delete iInMemDC;
+        delete imgDev;
+
+        }
+
+    delete iShowImg;
 
     }
 
@@ -160,7 +172,6 @@ void CSlideShowWnd::ConstructL(
 	iFocusControl = NULL;
 	iCommandObserver = aCommandObserver;
 	InitializeControlsL();
-    iShowImage->SetContainerWindowL(*this);
     TSize x = aRect.Size();
 	SetRect( aRect );
 	ActivateL();
@@ -189,8 +200,19 @@ void CSlideShowWnd::ConstructL(
         User::LeaveIfError(filesys.GetDir(KBmpFilter, KEntryAttNormal,
             ESortNone, iBmpFiles));
         CleanupStack::PopAndDestroy();// for the filesystem session
-        CActiveScheduler::Add(&iImgLoader);
+        // Prepare the in-memory buffer.
+        iShowImg = new (ELeave) CWsBitmap(iEikonEnv->WsSession());
+        TSize rectSize = aRect.Size();
+        User::LeaveIfError(iShowImg->Create(rectSize,
+            iEikonEnv->ScreenDevice()->DisplayMode()));
+        iShowImg->SetSizeInTwips(rectSize);
+        CFbsBitmapDevice* const imgDev = CFbsBitmapDevice::NewL(iShowImg);
+        CleanupStack::PushL(imgDev);
+        User::LeaveIfError(imgDev->CreateBitmapContext(iInMemDC));
+        CleanupStack::Pop();// for the image device
+        iImgLoader = Slideshow::CImgLoader::NewL(rectSize, *this);
         iCurBitmap = 0;
+        CActiveScheduler::Add(iImgLoader);
         iTimer = CPeriodic::NewL(CPeriodic::EPriorityStandard);
         iTimer->Start(0, 2000000, TCallBack(FlipImgL, this));
 
@@ -221,8 +243,6 @@ CCoeControl* CSlideShowWnd::ComponentControl( TInt aIndex ) const
 	// [[[ begin generated region: do not modify [Generated Contents]
 	switch ( aIndex )
 		{
-		case EShowImage:
-			return iShowImage;
 		}
 	// ]]] end generated region [Generated Contents]
 
@@ -254,7 +274,6 @@ void CSlideShowWnd::SizeChanged()
  */
 void CSlideShowWnd::LayoutControls()
 	{
-	iShowImage->SetExtent( TPoint( 0, 0 ), TSize( 240, 222 ) );
 	}
 // ]]] end generated function
 
@@ -289,14 +308,6 @@ void CSlideShowWnd::ExitApp(void)
  */
 void CSlideShowWnd::InitializeControlsL()
 	{
-	iShowImage = new ( ELeave ) CEikImage;
-		{
-		CFbsBitmap *bitmap = new (ELeave) CFbsBitmap;
-		bitmap->Create( TSize( 1, 1), EGray2 );
-		AknIconUtils::SetSize( bitmap, TSize( 240, 222 ), EAspectRatioPreserved );
-		iShowImage->SetPicture( bitmap );
-		}
-	iShowImage->SetAlignment( EHCenterVTop );
 
 	}
 // ]]] end generated function
@@ -313,18 +324,16 @@ void CSlideShowWnd::HandleResourceChange( TInt aType )
 
 	}
 
-void CSlideShowWnd::HandleImg(TInt aLoadRes, const CFbsBitmap* aImgObj)
+void CSlideShowWnd::HandleImg(TInt aLoadRes, const CFbsBitmap& aImgObj)
     {
 
     if (aLoadRes == KErrNone)
         {
 
-        iShowImage->SetPicture(aImgObj);
-        iShowImage->DrawDeferred();
+        iInMemDC->DrawBitmap(TPoint(0, 0), &aImgObj);
+        DrawDeferred();
 
         }
-    else// We must consume the image object.
-        delete aImgObj;
 
     }
 
@@ -338,6 +347,8 @@ void CSlideShowWnd::Draw( const TRect& aRect ) const
 	gc.Clear( aRect );
 
 	// ]]] end generated region [Generated Contents]
+	if (iShowImg != NULL)
+        gc.BitBlt(aRect.iTl, iShowImg);
 
 	}
 
@@ -350,7 +361,7 @@ void CSlideShowWnd::ChangeImgL(void)
 
         TFileName imgFile = iSelFolder;
         imgFile.Append((*iBmpFiles)[iCurBitmap++].iName);
-        iImgLoader.LoadImgL(imgFile);
+        iImgLoader->LoadImgL(imgFile);
 
         }
 

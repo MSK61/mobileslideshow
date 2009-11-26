@@ -40,13 +40,10 @@ namespace Slideshow
         /**
          * @brief Callback to notify this observer of image loading completion
          *
-         * The ownership of the passed-in image object is transferred to this
-         * observer.
-         *
          * @param[in] aLoadRes result of the image loading
          * @param[in] aImgObj  image object containing the loaded image
          */
-        virtual void HandleImg(TInt aLoadRes, const CFbsBitmap* aImgObj) = 0;
+        virtual void HandleImg(TInt aLoadRes, const CFbsBitmap& aImgObj) = 0;
         };
 
     }

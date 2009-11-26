@@ -40,13 +40,7 @@ namespace Slideshow
     class CImgLoader : public CActive
         {
     public:
-        /**
-         * Initializes the path upon which the loader will work
-         *
-         * @param     aObserver object to receive image loading completion
-         *                      notifications
-         */
-        CImgLoader(MImgLoadClient& aObserver);
+        ~CImgLoader();
         /**
          * @brief Starts loading an image asynchronously
          *
@@ -56,24 +50,38 @@ namespace Slideshow
          * @param[in] aFilePath image file name
          */
         void LoadImgL(const TFileName& aFileName);
+        /**
+         * @brief Two-phase constructor
+         *
+         * @param[in] aImgTwipSize desired image size in twips
+         * @param     aObserver    object to receive image loading completion
+         *                         notifications
+         */
+        static CImgLoader* const NewL(const TSize& aImgTwipSize,
+            MImgLoadClient& aObserver);
     protected:
         void DoCancel(void);
         /**
          * @brief Notifies the observer about the image loading status
-         *
-         * The observer should copy any needed information from the passed image
-         * object token as it'll be destroyed directly after the notification.
          */
         void RunL(void);
     private:
         /**
+         * Initializes the path upon which the loader will work
+         *
+         * @param[in] aImgTwipSize desired image size in twips
+         * @param     aObserver    object to receive image loading completion
+         *                         notifications
+         */
+        CImgLoader(const TSize& aImgTwipSize, MImgLoadClient& aObserver);
+        /**
+         * @brief Second phase leaving constructor
+         */
+        void ConstructL(void);
+        /**
          * @brief Cleans up a single image loading request
          */
         void EndLoad(void);
-        /**
-        * @brief Image object to store the loaded image in
-        */
-        CFbsBitmap* iImgObj;
         /**
          * @brief Filesystem session
          */
@@ -83,9 +91,17 @@ namespace Slideshow
          */
         CImageDecoder* iImgLoader;
         /**
+        * @brief Image object to store the loaded image in
+        */
+        CFbsBitmap* iImgObj;
+        /**
          * @brief object to receive image loading completion notifications
          */
         MImgLoadClient& iObserver;
+        /**
+         * @brief Image size in twips
+         */
+        TSize iImgTwipSize;
         };
 
     }
