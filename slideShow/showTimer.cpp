@@ -18,14 +18,14 @@
  *
  * file:         showTimer.cpp
  *
- * function:	 ChangeImg
+ * function:     ChangeImg
  *
  * description:  runtime logic of the display timer
  *
  * author:       Mohammed Safwat (MS)
  *
  * environment:  Microsoft Visual C++ 2008, Windows Mobile 6 Professional SDK,
- *				 windows xp profesional
+ *               windows xp profesional
  *
  * notes:        This is a private program.
  *

@@ -25,7 +25,7 @@
  * author:       Mohammed Safwat (MS)
  *
  * environment:  Microsoft Visual C++ 2008, Windows Mobile 6 Professional SDK,
- *				 windows xp profesional
+ *               windows xp profesional
  *
  * notes:        This is a private program.
  *
@@ -62,11 +62,11 @@ namespace Slideshow
     /**
     * @brief Image displaying timer callback
     *
-    * @param[in] hwnd	 handle to the window associated with the timer
+    * @param[in] hwnd    handle to the window associated with the timer
     * @param[in] uMsg    message type identifier
     * @param[in] idEvent timer identifier
     * @param[in] dwTime  number of milliseconds that have elapsed since the
-	*                    system was started
+    *                    system was started
     */
-	void CALLBACK ChangeImg(HWND hwnd, UINT uMsg, UINT idEvent, DWORD dwTime);
+    void CALLBACK ChangeImg(HWND hwnd, UINT uMsg, UINT idEvent, DWORD dwTime);
 }

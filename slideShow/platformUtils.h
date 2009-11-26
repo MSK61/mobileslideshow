@@ -21,12 +21,12 @@
  * function:
  *
  * description:  useful function and data declarations related to the windows
- *				 platform
+ *               platform
  *
  * author:       Mohammed Safwat (MS)
  *
  * environment:  Microsoft Visual C++ 2008, Windows Mobile 6 Professional SDK,
- *				 windows xp profesional
+ *               windows xp profesional
  *
  * notes:        This is a private program.
  *
@@ -49,11 +49,11 @@ namespace Slideshow
     * @brief Returns the contents of the given directory with the specified
     * conditions
     *
-    * @param[in] dirName	directory to return its contents
-    * @param[in] pattern	pattern to filter contents
+    * @param[in] dirName    directory to return its contents
+    * @param[in] pattern    pattern to filter contents
     * @param[in] attrFilter attributes to match with contents
-    * return				contents of the given directory matching the
-    *						specified conditions
+    * return                contents of the given directory matching the
+    *                       specified conditions
     */
     const std::list< tstring > GetContents(const tstring& dirName,
         const tstring& pattern, const DWORD attrFilter) throw ();

@@ -18,15 +18,15 @@
  *
  * file:         slideShow.cpp
  *
- * function:	 GetBmpFiles, InitInstance, MyRegisterClass, WinMain, and
- *				 WndProc
+ * function:     GetBmpFiles, InitInstance, MyRegisterClass, WinMain, and
+ *               WndProc
  *
  * description:  runtime logic of the application window
  *
  * author:       Mohammed Safwat (MS)
  *
  * environment:  Microsoft Visual C++ 2008, Windows Mobile 6 Professional SDK,
- *				 windows xp profesional
+ *               windows xp profesional
  *
  * notes:        This is a private program.
  *
@@ -87,14 +87,14 @@ int WINAPI WinMain(HINSTANCE hInstance,
     MSG msg;
 
     // Perform application initialization:
-    if (!InitInstance(hInstance, nCmdShow)) 
+    if (!InitInstance(hInstance, nCmdShow))
     {
         return FALSE;
     }
 
 
     // Main message loop:
-    while (GetMessage(&msg, NULL, 0, 0)) 
+    while (GetMessage(&msg, NULL, 0, 0))
     {
         {
             TranslateMessage(&msg);
@@ -152,19 +152,19 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     // of the device specific controls such as CAPEDIT and SIPPREF.
     SHInitExtraControls();
 
-    LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING); 
+    LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadString(hInstance, IDC_SLIDESHOW, szWindowClass, MAX_LOADSTRING);
 
     //If it is already running, then focus on the window, and exit
-    hWnd = FindWindow(szWindowClass, szTitle);	
-    if (hWnd) 
+    hWnd = FindWindow(szWindowClass, szTitle);
+    if (hWnd)
     {
         // set focus to foremost child window
         // The "| 0x00000001" is used to bring any owned windows to the foreground and
         // activate them.
         SetForegroundWindow((HWND)((ULONG) hWnd | 0x00000001));
         return 0;
-    } 
+    }
 
     if (!MyRegisterClass(hInstance, szWindowClass))
     {
@@ -210,11 +210,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     static const UINT turnOverPeriod = 2000;
 
 
-    switch (message) 
+    switch (message)
     {
     case WM_COMMAND:
-        wmId    = LOWORD(wParam); 
-        wmEvent = HIWORD(wParam); 
+        wmId    = LOWORD(wParam);
+        wmEvent = HIWORD(wParam);
         // Parse the menu selections:
         switch (wmId)
         {
@@ -234,7 +234,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         mbi.nToolBarId = IDR_MENU;
         mbi.hInstRes   = g_hInst;
 
-        if (!SHCreateMenuBar(&mbi)) 
+        if (!SHCreateMenuBar(&mbi))
         {
             g_hWndMenuBar = NULL;
         }
