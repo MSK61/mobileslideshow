@@ -1,6 +1,6 @@
 /*
  ========================================================================
- Name        : CImgLoader.cpp
+ Name        : CslideShowImgLoader.cpp
  Author      : Mohammed Safwat
  Copyright   : 2009 Mohammed El-Afifi
  This file is part of slideShow.
@@ -18,25 +18,25 @@
  You should have received a copy of the GNU Lesser General Public License
  along with slideShow.  If not, see <http://www.gnu.org/licenses/>.
 
- Description : represents the implementation of the class CImgLoader
+ Description : represents the implementation of the class CslideShowImgLoader
  ========================================================================
  */
 
-#include "../inc/CImgLoader.h"
+#include "../inc/CslideShowImgLoader.h"
 #include <imageconversion.h>
-#include "MImgLoadClient.h"
+#include "MslideShowImgLoadClient.h"
 
 namespace Slideshow
     {
 
-    CImgLoader::~CImgLoader()
+    CslideShowImgLoader::~CslideShowImgLoader()
         {
 
         delete iImgObj;
 
         }
 
-    void CImgLoader::LoadImgL(const TFileName& aFileName)
+    void CslideShowImgLoader::LoadImgL(const TFileName& aFileName)
         {
 
         iImgLoader = CImageDecoder::FileNewL(iFilesys, aFileName);
@@ -48,11 +48,11 @@ namespace Slideshow
 
         }
 
-    CImgLoader* const CImgLoader::NewL(const TSize& aImgTwipSize,
-        MImgLoadClient& aObserver)
+    CslideShowImgLoader* const CslideShowImgLoader::NewL(
+        const TSize& aImgTwipSize, MslideShowImgLoadClient& aObserver)
         {
-        CImgLoader* const self = new (ELeave) CImgLoader(aImgTwipSize,
-            aObserver);
+        CslideShowImgLoader* const self = new (ELeave) CslideShowImgLoader(
+            aImgTwipSize, aObserver);
 
         CleanupStack::PushL(self);
         self->ConstructL();
@@ -61,7 +61,7 @@ namespace Slideshow
 
         }
 
-    void CImgLoader::DoCancel(void)
+    void CslideShowImgLoader::DoCancel(void)
         {
 
         if (iImgLoader != NULL)
@@ -74,7 +74,7 @@ namespace Slideshow
 
         }
 
-    void CImgLoader::RunL(void)
+    void CslideShowImgLoader::RunL(void)
         {
 
         iImgObj->SetSizeInTwips(iImgTwipSize);//pre-notification processing
@@ -83,21 +83,21 @@ namespace Slideshow
 
         }
 
-    CImgLoader::CImgLoader(const TSize& aImgTwipSize, MImgLoadClient& aObserver) :
-        CActive(EPriorityStandard),
-            iImgLoader(NULL), iImgObj(NULL),
-            iObserver(aObserver), iImgTwipSize(aImgTwipSize)
+    CslideShowImgLoader::CslideShowImgLoader(const TSize& aImgTwipSize,
+        MslideShowImgLoadClient& aObserver) :
+        CActive(EPriorityStandard), iImgLoader(NULL), iImgObj(NULL),
+        iObserver(aObserver), iImgTwipSize(aImgTwipSize)
         {
         }
 
-    void CImgLoader::ConstructL(void)
+    void CslideShowImgLoader::ConstructL(void)
         {
 
         iImgObj = new (ELeave) CFbsBitmap;
 
         }
 
-    void CImgLoader::EndLoad(void)
+    void CslideShowImgLoader::EndLoad(void)
         {
 
         delete iImgLoader;

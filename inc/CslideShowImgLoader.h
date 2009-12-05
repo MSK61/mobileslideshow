@@ -1,6 +1,6 @@
 /*
 ========================================================================
- Name        : CImgLoader.h
+ Name        : CslideShowImgLoader.h
  Author      : Mohammed Safwat
  Copyright   : 2009 Mohammed El-Afifi
  This file is part of slideShow.
@@ -18,12 +18,12 @@
  You should have received a copy of the GNU Lesser General Public License
  along with slideShow.  If not, see <http://www.gnu.org/licenses/>.
 
- Description : represents the interface of the class CImgLoader
+ Description : represents the interface of the class CslideShowImgLoader
 ========================================================================
 */
 
-#ifndef CIMGLOADER_H_
-#define CIMGLOADER_H_
+#ifndef CSLIDESHOWIMGLOADER_H_
+#define CSLIDESHOWIMGLOADER_H_
 
 #include <e32base.h>
 #include <f32file.h>
@@ -33,14 +33,14 @@ class CImageDecoder;
 namespace Slideshow
     {
 
-    class MImgLoadClient;
+    class MslideShowImgLoadClient;
     /**
      * @brief Asynchronous image loader
      */
-    class CImgLoader : public CActive
+    class CslideShowImgLoader : public CActive
         {
     public:
-        ~CImgLoader();
+        ~CslideShowImgLoader();
         /**
          * @brief Starts loading an image asynchronously
          *
@@ -57,8 +57,8 @@ namespace Slideshow
          * @param     aObserver    object to receive image loading completion
          *                         notifications
          */
-        static CImgLoader* const NewL(const TSize& aImgTwipSize,
-            MImgLoadClient& aObserver);
+        static CslideShowImgLoader* const NewL(const TSize& aImgTwipSize,
+            MslideShowImgLoadClient& aObserver);
     protected:
         void DoCancel(void);
         /**
@@ -73,7 +73,8 @@ namespace Slideshow
          * @param     aObserver    object to receive image loading completion
          *                         notifications
          */
-        CImgLoader(const TSize& aImgTwipSize, MImgLoadClient& aObserver);
+        CslideShowImgLoader(const TSize& aImgTwipSize,
+            MslideShowImgLoadClient& aObserver);
         /**
          * @brief Second phase leaving constructor
          */
@@ -97,7 +98,7 @@ namespace Slideshow
         /**
          * @brief object to receive image loading completion notifications
          */
-        MImgLoadClient& iObserver;
+        MslideShowImgLoadClient& iObserver;
         /**
          * @brief Image size in twips
          */
@@ -106,4 +107,4 @@ namespace Slideshow
 
     }
 
-#endif /* CIMGLOADER_H_ */
+#endif /* CSLIDESHOWIMGLOADER_H_ */

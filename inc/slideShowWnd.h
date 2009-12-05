@@ -28,7 +28,7 @@
 #include <coecntrl.h>
 // ]]] end generated region [Generated Includes]
 
-#include "MImgLoadClient.h"
+#include "MslideShowImgLoadClient.h"
 
 // [[[ begin [Event Handler Includes]
 // ]]] end [Event Handler Includes]
@@ -39,14 +39,15 @@ class MEikCommandObserver;
 
 namespace Slideshow
 {
-class CImgLoader;
+class CslideShowImgLoader;
 }
 /**
  * Container class for slideShowWnd
  *
  * @class	CSlideShowWnd slideShowWnd.h
  */
-class CSlideShowWnd : public CCoeControl, public Slideshow::MImgLoadClient
+class CSlideShowWnd : public CCoeControl,
+    public Slideshow::MslideShowImgLoadClient
     {
 public:
 	// constructors and destructor
@@ -75,7 +76,7 @@ public:
 	void HandleResourceChange( TInt aType );
 
 public:
-    // from base class Slideshow::MImgLoadClient
+    // from base class Slideshow::MslideShowImgLoadClient
     void HandleImg(TInt aLoadRes, const CFbsBitmap& aImgObj);
 
 protected:
@@ -106,7 +107,7 @@ private:
 	/**
 	 * @brief Image loading and decoding facility
 	 */
-	Slideshow::CImgLoader* iImgLoader;
+	Slideshow::CslideShowImgLoader* iImgLoader;
     /**
     * @brief In-memory device context storing the bitmap
     */

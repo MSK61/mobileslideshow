@@ -1,6 +1,6 @@
 /*
  ========================================================================
- Name        : MImgLoadClient.cpp
+ Name        : MslideShowImgLoadClient.h
  Author      : Mohammed Safwat
  Copyright   : 2009 Mohammed El-Afifi
  This file is part of slideShow.
@@ -18,17 +18,34 @@
  You should have received a copy of the GNU Lesser General Public License
  along with slideShow.  If not, see <http://www.gnu.org/licenses/>.
 
- Description : represents the stub of the interface MImgLoadClient
+ Description : represents the interface MslideShowImgLoadClient
  ========================================================================
  */
 
-#include "../inc/MImgLoadClient.h"
+#ifndef MSLIDESHOWIMGLOADCLIENT_H_
+#define MSLIDESHOWIMGLOADCLIENT_H_
+#include "e32def.h"
 
+class CFbsBitmap;
 namespace Slideshow
     {
 
-    MImgLoadClient::~MImgLoadClient()
+    /**
+     * @brief Image loading observer
+     */
+    class MslideShowImgLoadClient
         {
-        }
+    public:
+        virtual ~MslideShowImgLoadClient();
+        /**
+         * @brief Callback to notify this observer of image loading completion
+         *
+         * @param[in] aLoadRes result of the image loading
+         * @param[in] aImgObj  image object containing the loaded image
+         */
+        virtual void HandleImg(TInt aLoadRes, const CFbsBitmap& aImgObj) = 0;
+        };
 
     }
+
+#endif /* MSLIDESHOWIMGLOADCLIENT_H_ */

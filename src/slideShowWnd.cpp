@@ -30,7 +30,7 @@
 #include <slideShow.rsg>
 // ]]] end generated region [Generated System Includes]
 #include <caknfileselectiondialog.h>
-#include "CImgLoader.h"
+#include "CslideShowImgLoader.h"
 #include <pathinfo.h>
 #include <stringloader.h>
 
@@ -210,7 +210,7 @@ void CSlideShowWnd::ConstructL(
         CleanupStack::PushL(imgDev);
         User::LeaveIfError(imgDev->CreateBitmapContext(iInMemDC));
         CleanupStack::Pop();// for the image device
-        iImgLoader = Slideshow::CImgLoader::NewL(rectSize, *this);
+        iImgLoader = Slideshow::CslideShowImgLoader::NewL(rectSize, *this);
         iCurBitmap = 0;
         CActiveScheduler::Add(iImgLoader);
         iTimer = CPeriodic::NewL(CPeriodic::EPriorityStandard);

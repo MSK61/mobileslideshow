@@ -41,4 +41,4 @@ DEBUGGABLE_UDEBONLY
 
 SOURCE slideShowDocument.cpp slideShowApplication.cpp slideShowAppUi.cpp slideShowWnd.cpp
 SOURCEPATH ..\src
-SOURCE CImgLoader.cpp MImgLoadClient.cpp
+SOURCE CslideShowImgLoader.cpp MslideShowImgLoadClient.cpp
